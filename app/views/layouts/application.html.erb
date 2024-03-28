@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark"> 
   <head>
     <title>DivTracker</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,10 +10,12 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
+<%= render "layouts/navbar" %>
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  
+    <main class="container mx-auto mt-28 px-5">
       <%= yield %>
     </main>
   </body>
 </html>
+
