@@ -34,7 +34,41 @@
     </ul>
   </div>
   <div class="navbar-end">
-    <a class="btn btn-primary">Login</a>
-    <a class="btn">Sign-in</a>
+    <!---Login Button--->
+    <button class="btn" onclick="login.showModal()">login</button>
+    <dialog id="login" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">Login</h3>
+        <p class="py-4">Click the button below to close</p>
+        <div class="modal-action ">
+          <form method="dialog">
+            <!-- if there is a button, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+      <!---Exits if clicked outside or pressed 'ESC'--->
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+    <!---Sign-up Button--->
+    <button class="btn" onclick="signup.showModal()">Sign-up</button>
+    <dialog id="signup" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">Sign-up</h3>
+        <p class="py-4">Click the button below to close</p>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+      <!---Exits if clicked outside or pressed 'ESC'--->
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
   </div>
 </div>
