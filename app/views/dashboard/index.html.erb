@@ -1,9 +1,26 @@
 <div>
+  <!---Flash message--->
+   <% if flash.now[:message] %>
+    <div class="alert alert-info alert-dismissible fade show">
+      <%= flash[:message] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
   <div id="SearchBar" class="w-fit">
-    <label class="input input-bordered flex items-center p-0">
-      <input type="text" placeholder="Search" />
-    </label>
+    <!---Search bar--->
+    <%= form_with url: "/dashboard/search", method: :get do |form| %>
+      <div class="input items-center p-0">
+        <%= form.text_field :query %>
+        <%= form.submit "Search", class: "btn btn-active btn-primary" %>
+      </div>
+    <% end %>
   </div>
+  <!---Search Results--->
+  <%if params[:query].present? %>
+    <%= render 'search' %>
+  <%end%>
+  
+
   <div id="Table">
     <div class="overflow-x-auto">
       <table class="table">

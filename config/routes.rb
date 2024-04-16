@@ -12,4 +12,5 @@ Rails.application.routes.draw do
 
   #Dashboard route
   get "dashboard", to: "dashboard#index"
+  get "dashboard/search", to: "dashboard#index"
 end
