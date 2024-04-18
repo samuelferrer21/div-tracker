@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
 
 
       #response = Faraday.get "https://api07.iq.questrade.com/v1/symbols/search?prefix=#{params[:query]}", params do |request|
-        #request.headers["Authorization"] = "Bearer KxSIVYI8r6hjaS39xfQExLx7ztyd6hae0"
+        #request.headers["Authorization"] = "Bearer "
       #end
       #logger.info(response)
       #puts response.body[]
