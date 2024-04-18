@@ -35,23 +35,9 @@
   </div>
   <div class="navbar-end">
     <!---Login Button--->
-    <button class="btn mr-[15px]" onclick="login.showModal()">login</button>
-    <dialog id="login" class="modal">
-      <div class="modal-box w-11/12 bg-base-300 p-3">
-        <h3 class="font-bold text-lg">Login</h3>
-        <p class="py-4">Click the button below to close</p>
-        <div class="modal-action ">
-          <form method="dialog">
-            <!-- if there is a button, it will close the modal -->
-            <button class="btn">Close</button>
-          </form>
-        </div>
-      </div>
-      <!---Exits if clicked outside or pressed 'ESC'--->
-      <form method="dialog" class="modal-backdrop">
-        <button>close</button>
-      </form>
-    </dialog>
+    <a href='https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=token&redirect_uri=https://test-nzsgnmqvfq-uc.a.run.app'>
+      <button class="btn mr-[15px]">login</button>
+    <a>
     <!---Sign-up Button--->
     <button class="btn" onclick="signup.showModal()">Sign-up</button>
     <dialog id="signup" class="modal">
