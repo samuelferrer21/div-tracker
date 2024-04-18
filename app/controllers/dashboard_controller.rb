@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
     if params[:query].present?
       flash.now[:message] = "Showing results for Ticker containing '#{params[:query]}'."
 
-      response = Faraday.get('https://login.questrade.com/oauth2/token?grant_type=refresh_token&refresh_token=RfeXt38_qV89hpNGl4UIfd6NRzC4PgUP0')
+      response = Faraday.get('https://login.questrade.com/oauth2/token?grant_type=refresh_token&refresh_token=')
       logger.info(response)
 
 
