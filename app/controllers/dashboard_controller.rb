@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
   def index
+    @UserIsSignedIn= user_signed_in?
+    puts "Session #{user_signed_in?}"
     # Fetches the query
     if params[:query].present?
       flash.now[:message] = "Showing results for Ticker containing '#{params[:query]}'."

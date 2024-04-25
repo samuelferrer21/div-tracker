@@ -1,49 +1,57 @@
 <div class="navbar bg-base-300 w-full">
+  
   <div class="navbar-start">
+   
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li><%= link_to "Dashboard", dashboard_path %></li>
+        <% if @UserIsSignedIn%>
+          <li><%= link_to "Dashboard", dashboard_path %></li>
         <li>
-          <a>Parent</a>
-          <ul class="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
-        <li><a>Item 3</a></li>
-      </ul>
-    </div>
-      <%= link_to "DivTracker", root_path, class:"btn btn-ghost text-xl"%>
-  </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
-      <li><%= link_to "Dashboard", dashboard_path %></li>
-      <li>
-        <details>
-          <summary>Profile</summary>
+          <a>Profile</a>
           <ul class="p-2">
             <li><a>Subscriptions</a></li>
             <li><a>Details</a></li>
           </ul>
-        </details>
-      </li>
-      <li><a>Feedback</a></li>
+        </li>
+        <% else%>
+        <li><a>Feedback</a></li>
+        <%end%>
+        
+      </ul>
+    </div>
+    <%= link_to "DivTracker", root_path, class:"btn btn-ghost text-xl"%>
+  </div>
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      <% if @UserIsSignedIn%>
+        <li><%= link_to "Dashboard", dashboard_path %></li>
+        <li>
+          <details>
+            <summary>Profile</summary>
+            <ul class="p-2">
+              <li><a>Subscriptions</a></li>
+              <li><a>Details</a></li>
+            </ul>
+          </details>
+        </li>
+        <%else%>
+          <li><a>Feedback</a></li>
+      <%end%>
     </ul>
   </div>
   <div class="navbar-end">
-    <!---Login Button--->
-    <a href='https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=token&redirect_uri=https://test-nzsgnmqvfq-uc.a.run.app'>
-      <button class="btn mr-[15px]">login</button>
-    <a>
-    <!---Sign-up Button--->
-    <button class="btn" onclick="signup.showModal()">Sign-up</button>
-    <dialog id="signup" class="modal">
+    <% if @UserIsSignedIn%>
+      <%= button_to "Sign_out", destroy_user_session_path, :method => 'delete', data:{turbo: "false"} %>
+    <%else%>
+    <button class="btn mr-[15px]" onclick="login.showModal()">login</button>
+    <dialog id="login" class="modal">
       <div class="modal-box w-11/12 bg-base-300 p-3">
-        <h3 class="font-bold text-lg">Sign-up</h3>
-        <p class="py-4">Click the button below to close</p>
+        <h3 class="font-bold text-lg">Login</h3>
+        
+        <%= render "devise/sessions/new"%>
         <div class="modal-action">
           <form method="dialog">
             <!-- if there is a button, it will close the modal -->
@@ -56,5 +64,27 @@
         <button>close</button>
       </form>
     </dialog>
+    <!---Sign-up Button--->
+    <button class="btn" onclick="signup.showModal()">Sign-up</button>
+    <dialog id="signup" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">Sign-up</h3>
+       <%= render "devise/registrations/new"%>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+      <!---Exits if clicked outside or pressed 'ESC'--->
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+    <%end%>
+    <!---Login Button--->
+    <!---<a href='https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=token&redirect_uri=https://test-nzsgnmqvfq-uc.a.run.app'>--->
+    
   </div>
 </div>
