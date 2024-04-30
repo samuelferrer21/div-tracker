@@ -14,13 +14,12 @@
         <%= form.submit "Search", class: "btn btn-active btn-primary" %>
       </div>
     <% end %>
+    <%= button_to "Connect to Questrade", "https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=code&redirect_uri=https://div-tracker-tjzx7q7eeq-uc.a.run.app", class:"btn btn-primary"%>
   </div>
   <!---Search Results--->
   <%if params[:query].present? %>
     <%= render 'search' %>
   <%end%>
-  
-
   <div id="Table">
     <div class="overflow-x-auto">
       <table class="table">

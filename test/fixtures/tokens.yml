@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  access_token: MyText
+  refresh_token: MyText
+  user: one
+  created_at: 2024-04-29 14:14:36
+  last_updated: 2024-04-29 14:14:36
+
+two:
+  access_token: MyText
+  refresh_token: MyText
+  user: two
+  created_at: 2024-04-29 14:14:36
+  last_updated: 2024-04-29 14:14:36
