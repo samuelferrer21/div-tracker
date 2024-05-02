@@ -1,0 +1,8 @@
+Postgres cluster div-tracker created
+  Username:    postgres
+  Password:    dgHgL3UmmdHqZ1R
+  Hostname:    div-tracker.internal
+  Flycast:     fdaa:3:d5bb:0:1::5
+  Proxy port:  5432
+  Postgres port:  5433
+  Connection string: postgres://postgres:dgHgL3UmmdHqZ1R@div-tracker.flycast:5432

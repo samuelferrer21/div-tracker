@@ -11,44 +11,46 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_04_29_192244) do
+  create_schema "crdb_internal"
+
   create_table "payment_schedules", force: :cascade do |t|
     t.text "distribution_schedule"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "portfolio_stocks", force: :cascade do |t|
-    t.integer "portfolio_id", null: false
+    t.bigint "portfolio_id", null: false
     t.text "stock_name"
-    t.integer "number_of_shares"
+    t.bigint "number_of_shares"
     t.decimal "share_price"
     t.decimal "avg_share_price"
     t.decimal "total_value"
-    t.integer "payment_schedule_id", null: false
+    t.bigint "payment_schedule_id", null: false
     t.decimal "div_yield"
     t.decimal "div_per_share"
     t.decimal "total_div"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["payment_schedule_id"], name: "index_portfolio_stocks_on_payment_schedule_id"
     t.index ["portfolio_id"], name: "index_portfolio_stocks_on_portfolio_id"
   end
 
   create_table "portfolios", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.text "portfolio_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_portfolios_on_user_id"
   end
 
   create_table "tokens", force: :cascade do |t|
     t.text "access_token"
     t.text "refresh_token"
-    t.integer "user_id", null: false
-    t.datetime "last_updated"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.datetime "last_updated", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_tokens_on_user_id"
   end
 
@@ -56,12 +58,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_29_192244) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+
+    t.unique_constraint ["email"], name: "index_users_on_email"
+    t.unique_constraint ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "portfolio_stocks", "payment_schedules"

@@ -4,22 +4,64 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem "sqlite3"
 #
+
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+
+  default: &default
+  adapter: cockroachdb
+  pool:  5
+  host: div-tracker-14421.gcp-us-central1.cockroachlabs.cloud
+  port: 26257
+  database: defaultdb
+  username: samuel
+  password: dccg90KTK5v92mRVu_L3bQ
+  sslrootcert: './root.crt'
+  sslmode: verify-full
+  options: "--cluster=div-tracker-14421"
+
+ 
 
 development:
   <<: *default
-  database: storage/development.sqlite3
+  adapter: cockroachdb
+  pool:  5
+  host: div-tracker-14421.gcp-us-central1.cockroachlabs.cloud
+  port: 26257
+  database: defaultdb
+  username: samuel
+  password: dccg90KTK5v92mRVu_L3bQ
+  sslrootcert: './root.crt'
+  sslmode: verify-full
+  options: "--cluster=div-tracker-14421"
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: storage/test.sqlite3
+  adapter: cockroachdb
+  pool:  5
+  host: div-tracker-14421.gcp-us-central1.cockroachlabs.cloud
+  port: 26257
+  database: defaultdb
+  username: samuel
+  password: dccg90KTK5v92mRVu_L3bQ
+  sslrootcert: './root.crt'
+  sslmode: verify-full
+  options: "--cluster=div-tracker-14421"
+
 
 production:
   <<: *default
-  database: storage/production.sqlite3
+  adapter: cockroachdb
+  pool:  5
+  host: div-tracker-14421.gcp-us-central1.cockroachlabs.cloud
+  port: 26257
+  database: defaultdb
+  username: samuel
+  password: dccg90KTK5v92mRVu_L3bQ
+  sslrootcert: './root.crt'
+  sslmode: verify-full
+  options: "--cluster=div-tracker-14421"
+

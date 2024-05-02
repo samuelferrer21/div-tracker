@@ -3,7 +3,9 @@ FROM ruby:3.1.2
 
 # Set environment variables
 ENV RAILS_ENV=development \
-    RAILS_SERVE_STATIC_FILES=true
+    RAILS_SERVE_STATIC_FILES=true \
+    DATABASE_URL=cockroachdb://samuel:dccg90KTK5v92mRVu_L3bQ@div-tracker-14421.5xj.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full
+
 
 # Install essential Linux packages
 RUN apt-get update -qq && apt-get install -y \
@@ -24,6 +26,14 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && bundle install --jobs 20 --retry 5
 RUN   npm i -D daisyui@latest
 
+RUN apt-get update && apt-get install -y \
+  postgresql-client \
+  libpq-dev
+
+#DB
+RUN curl --create-dirs -o $HOME/.postgresql/root.crt 'https://cockroachlabs.cloud/clusters/b0313d8c-005f-4347-bc27-63c34334c6c8/cert'
+
+#RUN export DATABASE_URL='cockroachdb://samuel:dccg90KTK5v92mRVu_L3bQ@div-tracker-14421.5xj.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full'
 # Copy the rest of the application code
 COPY . .
 
