@@ -16,6 +16,8 @@ The purpose of this project is to utilize the official Questrade API and allow u
 # Current Features
   - Working login and sign up
   - Retrieval of authorization tokens from Questrade
+  - Site is currently accessible from Google Cloud Run
+  - DB is successfly communicating with the the deployed app
 
 # Resources used
   - Financial information gathered by the official Questrade API
