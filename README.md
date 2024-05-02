@@ -12,6 +12,13 @@ The purpose of this project is to utilize the official Questrade API and allow u
   - Dividend payout Schedule Calander
   - Visual graphs accompanying the portfolio
   - Ability to share each portfolio
-    
-# Changelog (Started 4/26/2024)
 
+# Current Features
+  - Working login and sign up
+  - Retrieval of authorization tokens from Questrade
+
+# Resources used
+  - Financial information gathered by the official Questrade API
+  - Styling is by Tailwind and Daisy UI
+  - Hosted on Google Cloud Run (Free Tier)
+  - DB hosted on CockroachDB
