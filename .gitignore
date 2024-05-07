@@ -10,6 +10,11 @@
 # Ignore all environment files (except templates).
 /.env*
 !/.env*.erb
+#Ignore root cert
+/root.crt
+
+#Master key
+/master.key
 
 # Ignore all logfiles and tempfiles.
 /log/*

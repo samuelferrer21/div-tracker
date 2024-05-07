@@ -10,29 +10,27 @@ default: &default
   default: &default
   adapter: cockroachdb
   pool:  5
-  host: div-tracker-14421.gcp-us-central1.cockroachlabs.cloud
+  host: <%=Rails.application.credentials.host_key%>
   port: 26257
-  database: defaultdb
-  username: samuel
-  password: dccg90KTK5v92mRVu_L3bQ
-  sslrootcert: './root.crt'
+  database: <%=Rails.application.credentials.database_key%>
+  username: <%=Rails.application.credentials.username_key%>
+  password: <%=Rails.application.credentials.password_key%>
+  sslrootcert: <%=Rails.application.credentials.sslrootcert_key%>
   sslmode: verify-full
-  options: "--cluster=div-tracker-14421"
-
- 
+  options: <%=Rails.application.credentials.options_key%>
 
 development:
   <<: *default
   adapter: cockroachdb
   pool:  5
-  host: div-tracker-14421.gcp-us-central1.cockroachlabs.cloud
+  host: <%=Rails.application.credentials.host_key%>
   port: 26257
-  database: defaultdb
-  username: samuel
-  password: dccg90KTK5v92mRVu_L3bQ
-  sslrootcert: './root.crt'
+  database: <%=Rails.application.credentials.database_key%>
+  username: <%=Rails.application.credentials.username_key%>
+  password: <%=Rails.application.credentials.password_key%>
+  sslrootcert: <%=Rails.application.credentials.sslrootcert_key%>
   sslmode: verify-full
-  options: "--cluster=div-tracker-14421"
+  options: <%=Rails.application.credentials.options_key%>
 
 
 # Warning: The database defined as "test" will be erased and
@@ -42,26 +40,26 @@ test:
   <<: *default
   adapter: cockroachdb
   pool:  5
-  host: div-tracker-14421.gcp-us-central1.cockroachlabs.cloud
+  host: <%=Rails.application.credentials.host_key%>
   port: 26257
-  database: defaultdb
-  username: samuel
-  password: dccg90KTK5v92mRVu_L3bQ
-  sslrootcert: './root.crt'
+  database: <%=Rails.application.credentials.database_key%>
+  username: <%=Rails.application.credentials.username_key%>
+  password: <%=Rails.application.credentials.password_key%>
+  sslrootcert: <%=Rails.application.credentials.sslrootcert_key%>
   sslmode: verify-full
-  options: "--cluster=div-tracker-14421"
+  options: <%=Rails.application.credentials.options_key%>
 
 
 production:
   <<: *default
   adapter: cockroachdb
   pool:  5
-  host: div-tracker-14421.gcp-us-central1.cockroachlabs.cloud
+  host: <%=Rails.application.credentials.host_key%>
   port: 26257
-  database: defaultdb
-  username: samuel
-  password: dccg90KTK5v92mRVu_L3bQ
-  sslrootcert: './root.crt'
+  database: <%=Rails.application.credentials.database_key%>
+  username: <%=Rails.application.credentials.username_key%>
+  password: <%=Rails.application.credentials.password_key%>
+  sslrootcert: <%=Rails.application.credentials.sslrootcert_key%>
   sslmode: verify-full
-  options: "--cluster=div-tracker-14421"
+  options: <%=Rails.application.credentials.options_key%>
 
