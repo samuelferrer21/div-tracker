@@ -20,6 +20,7 @@ Rails.application.configure do
   config.assets.compile = false
   #Google Cloud run url
   config.hosts << "div-tracker-tjzx7q7eeq-uc.a.run.app"
+  #config.hosts << "crl-app-tjzx7q7eeq-uc.a.run.app"
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?

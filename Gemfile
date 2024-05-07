@@ -74,3 +74,9 @@ end
 gem "tailwindcss-rails", "~> 2.3"
 #Devise gem
 gem 'devise'
+
+#postgres
+gem 'pg'
+
+#cockroachdb
+gem 'activerecord-cockroachdb-adapter'
