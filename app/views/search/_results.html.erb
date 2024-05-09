@@ -1,0 +1,28 @@
+
+<div id="Table">
+    <div class="overflow-x-auto">
+        <table class="table">
+            <!-- head -->
+            <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Description</th>
+                <th>Exchange</th>
+                <th>Security Type</th>
+                <th>Currency</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @symbols.each do |symbol|%>
+                <tr class="hover">
+                    <td><%=symbol[:symbol]%></td>
+                    <td><%=symbol[:description]%></td>
+                    <td><%=symbol[:listingExchange]%></td>
+                    <td><%=symbol[:securityType]%></td>
+                    <td><%=symbol[:currency]%></td>
+                </tr>
+            <%end%>
+            </tbody>
+      </table>
+    </div>
+</div>

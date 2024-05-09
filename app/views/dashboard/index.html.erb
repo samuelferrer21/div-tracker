@@ -6,21 +6,12 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
-  <div id="SearchBar" class="w-fit">
-    <!---Search bar--->
-    <%= form_with url: "/dashboard/search", method: :get do |form| %>
-      <div class="input items-center p-0">
-        <%= form.text_field :query %>
-        <%= form.submit "Search", class: "btn btn-active btn-primary" %>
-      </div>
-    <% end %>
+  <div id="SearchBar" class="w-fit flex">
+    <!---Search button --->
+    <%= button_to "Add Holding", search_path, method: :get, class:"btn" %>
     <%= button_to "Connect to Questrade", "https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=code&redirect_uri=https://div-tracker-tjzx7q7eeq-uc.a.run.app", class:"btn btn-primary"%>
   </div>
 
-  <!---Search Results--->
-  <%if params[:query].present? %>
-    <%= render 'search' %>
-  <%end%>
   <div id="Table">
     <div class="overflow-x-auto">
       <table class="table">
