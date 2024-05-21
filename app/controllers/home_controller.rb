@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       session[:api_server] = Token.find_by(user_id: current_user.id).api_server
 
       #updates the access and refresh token if the difference between current time and last updated is more than 30 minutes.
-      if Time.now - session[:last_updated] > 1800
+      if Time.now - DateTime.parse(session[:last_updated]) > 1800
         #Sends a post request once code is recieved to get access and refresh token
         response = Faraday.get("https://login.questrade.com/oauth2/token?grant_type=refresh_token&refresh_token=#{session[:refresh_token]}")
         #Parses the response to json
@@ -30,7 +30,7 @@ class HomeController < ApplicationController
     end
    end
 
-   #Retrieves the authorization code from Questrade
+   #Retrieves the authorization code from Questrade if the user doesnt have a current token
    if @UserIsSignedIn & !params[:code].nil?
      #Sends a post request once code is recieved to get access and refresh token
      response = Faraday.get("https://login.questrade.com/oauth2/token?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&code=#{params[:code]}&grant_type=authorization_code&redirect_uri=https://div-tracker-tjzx7q7eeq-uc.a.run.app")
