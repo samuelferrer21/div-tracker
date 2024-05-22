@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search/index'
   devise_for :users
 
 
@@ -14,5 +15,7 @@ Rails.application.routes.draw do
 
   #Dashboard route
   get "dashboard", to: "dashboard#index"
-  get "dashboard/search", to: "dashboard#index"
+
+  get "search", to: "search#index"
+  get "search/results", to: "search#index"
 end

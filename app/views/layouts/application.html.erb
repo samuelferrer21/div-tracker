@@ -13,9 +13,9 @@
 
   <body>
     <%= render "layouts/navbar" %>
-      <main class="container mx-auto mt-28 px-5">
+      <main class="container mx-auto mt-28 px-5 border-none">
          <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
+          <p class="alert border-0 bg-base-100"><%= alert  %></p>
         <%= yield %>
       </main>
     <%= render "layouts/footer" %>
