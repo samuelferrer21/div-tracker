@@ -36,9 +36,16 @@
     <button class="btn mr-[15px]" onclick="create_portfolio.showModal()">New Portfolio</button>
     <%# Connect to Questrade %>
     <%= button_to "Connect to Questrade", "https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=code&redirect_uri=https://div-tracker-tjzx7q7eeq-uc.a.run.app", class:"btn btn-primary"%>
-    <%# Create a portfolio %>
-    
+    <%# Create a portfolio %> 
   </div>
+  <%# Portfolios will be displayed here and navigation will take place here as well%>
+  <div>
+    <div id="testing">
+      <!-- Turbo frame appears here -->
+      <%= render "dashboard/portfolios", portfolios: @test%>
+    </div>
+  </div>
+
 
   <%# Displays the current portfolio %>
   <div id="Table">

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   #Dashboard route
   get "dashboard", to: "dashboard#index"
-  post "dashboard", to: "portfolio#create"
+  post "dashboard", to: "dashboard#create"
 
   get "search", to: "search#index"
   get "search/results", to: "search#index"
