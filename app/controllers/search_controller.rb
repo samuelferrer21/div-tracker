@@ -3,9 +3,9 @@ class SearchController < ApplicationController
   rescue_from Faraday::Error, with: :handle_connection_failed
   def index
     @UserIsSignedIn= user_signed_in?
-
+    update_token
     if params[:query].present?
-      update_token
+
       flash.now[:message] = "Showing results for symbol containing '#{params[:query]}'."
 
        search_connection = Faraday.new(url: "#{session[:api_server]}v1/symbols/search?prefix=#{params[:query]}") do |build|
@@ -17,6 +17,7 @@ class SearchController < ApplicationController
         search_connection.get
       rescue Faraday::Error => e
         puts "Error occured"
+        puts e.message
         raise e
       end
 

@@ -1,6 +1,30 @@
 
 <div id="Table">
     <div class="overflow-x-auto">
+        <%# Dialog box %>
+      <dialog id="login" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">Add to Portfolio</h3>
+        <%# Add holding Form %>
+        <%= form_with url: "/new_holding", method: :post do |f| %>
+            <%= f.number_field :number_of_shares %>
+            <%= f.number_field :avg_share_price, min: 1, step: 0.01 %>
+            <%= f.hidden_field :symbol_id%>
+            <%= f.submit "Add"%>
+        <%end%>
+
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+      <!---Exits if clicked outside or pressed 'ESC'--->
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+        </dialog>
         <table class="table">
             <!-- head -->
             <thead>
@@ -20,6 +44,11 @@
                     <td><%=symbol[:listingExchange]%></td>
                     <td><%=symbol[:securityType]%></td>
                     <td><%=symbol[:currency]%></td>
+                    <td>
+                        <%# Will contain Add button%>
+                        <%# Uses js to change form default values %>
+                        <button class="btn mr-[15px]" onclick="login.showModal(), document.getElementById('symbol_id').value = '<%=symbol[:symbolId]%>'">login</button>
+                    </td>
                 </tr>
             <%end%>
             </tbody>
