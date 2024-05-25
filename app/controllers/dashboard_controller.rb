@@ -5,16 +5,16 @@ class DashboardController < ApplicationController
     puts "Session #{user_signed_in?}"
     @test = Portfolio.where(user_id: current_user.id)
 
+    # This will contain the stock data for the selected portfolio.
+    @selectedPortfolio = nil
+
+    if !params[:portfolio_id].nil?
+      @selectedPortfolio = Portfolio_stock.where(portfolio_id: params[:portfolio_id]).all
+    end
+
   end
 
 
-
-  def add_stock
-    @UserIsSignedIn= user_signed_in?
-    puts "added stock"
-
-    #Insert new stock
-  end
 
   def create
     #Creates a new portfolio of the user if it does not exist
@@ -28,8 +28,6 @@ class DashboardController < ApplicationController
       flash[:alert] = "Portfolio already exists"
       redirect_back(fallback_location: dashboard_path)
     end
-
-
   end
 
   def update_portfolio

@@ -2,11 +2,18 @@
 <div id="Table">
     <div class="overflow-x-auto">
         <%# Dialog box %>
-      <dialog id="login" class="modal">
+      <dialog id="add_stock" class="modal">
       <div class="modal-box w-11/12 bg-base-300 p-3">
         <h3 class="font-bold text-lg">Add to Portfolio</h3>
+
+        <%= turbo_frame_tag 'response' do %>
+          <div>
+            <P>Successfully added the Stock</P>
+          </div>
+        <% end %>
         <%# Add holding Form %>
-        <%= form_with url: "/new_holding", method: :post do |f| %>
+        <%= form_with url: "/new_holding", method: :post, remote: true do |f| %>
+            <%= f.select :portfolio_id, options_from_collection_for_select(Portfolio.where(user_id: current_user.id).all, :id, :portfolio_name),  { prompt: "Select Portfolio" } %>
             <%= f.number_field :number_of_shares %>
             <%= f.number_field :avg_share_price, min: 1, step: 0.01 %>
             <%= f.hidden_field :symbol_id%>
@@ -47,7 +54,7 @@
                     <td>
                         <%# Will contain Add button%>
                         <%# Uses js to change form default values %>
-                        <button class="btn mr-[15px]" onclick="login.showModal(), document.getElementById('symbol_id').value = '<%=symbol[:symbolId]%>'">login</button>
+                        <button class="btn mr-[15px]" onclick="add_stock.showModal(), document.getElementById('symbol_id').value = '<%=symbol[:symbolId]%>'">login</button>
                     </td>
                 </tr>
             <%end%>

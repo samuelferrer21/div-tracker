@@ -1,4 +1,4 @@
 
-<% portfolios.each do |f|%>
-    <p><%=f.portfolio_name%></p>
+<% portfolios.each do |f| %>
+    <%= button_to "#{f.portfolio_name}", dashboard_path, method: :get, params: { portfolio_id: f.id } %>
 <%end%>

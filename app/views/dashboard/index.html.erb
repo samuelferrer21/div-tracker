@@ -48,6 +48,9 @@
 
 
   <%# Displays the current portfolio %>
+  <%if !params[:portfolio_id].nil?%>
+    <p><%= @selectedPortfolio%></p>
+    <%end%>
   <div id="Table">
     <div class="overflow-x-auto">
       <table class="table">

@@ -21,5 +21,5 @@ Rails.application.routes.draw do
   get "search/results", to: "search#index"
 
   #Add a stock
-  post "new_holding", to: "dashboard#add_stock"
+  post "new_holding", to: "search#add_stock"
 end
