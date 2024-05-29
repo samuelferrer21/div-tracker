@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
 
       #updates the access and refresh token if the difference between current time and last updated is more than 30 minutes.
       if Time.now - session[:last_updated] > 1800
+        puts "Token being updated"
         #Sends a post request once code is recieved to get access and refresh token
         response = Faraday.get("https://login.questrade.com/oauth2/token?grant_type=refresh_token&refresh_token=#{session[:refresh_token]}")
         #Parses the response to json
@@ -49,7 +50,6 @@ class ApplicationController < ActionController::Base
         session[:last_updated] ||= Time.now
       end
     end
-    puts "updated token"
   end
 
 end

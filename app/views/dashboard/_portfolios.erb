@@ -1,0 +1,5 @@
+
+<%# Uses the passed variable "portfolios" and creates the buttons of each entry %>
+<% portfolios.each do |f| %>
+    <%= button_to "#{f.portfolio_name}", dashboard_path, method: :get, params: { portfolio_id: f.id } %>
+<%end%>

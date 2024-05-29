@@ -1,7 +1,31 @@
 <div>
+
+  <%# Create new portfolio %>
+  <dialog id="create_portfolio" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">New Portfolio</h3>
+        <%= form_with model: @portfolio, method: :post do |f| %>
+            <%= f.text_field :portfolio_name %>
+            <%= f.submit "Add"%>
+        <%end%>
+
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+      <!---Exits if clicked outside or pressed 'ESC'--->
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+  </dialog>
+
+
   <!---Flash message--->
    <% if flash.now[:message] %>
-    <div class="alert alert-info alert-dismissible fade show">
+    <div class="alert alert-error bg-error alert-dismissible fade show">
       <%= flash[:message] %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -9,50 +33,23 @@
   <div id="SearchBar" class="w-fit flex">
     <!---Search button --->
     <%= button_to "Add Holding", search_path, method: :get, class:"btn" %>
+    <button class="btn mr-[15px]" onclick="create_portfolio.showModal()">New Portfolio</button>
+    <%# Connect to Questrade %>
     <%= button_to "Connect to Questrade", "https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=code&redirect_uri=https://div-tracker-tjzx7q7eeq-uc.a.run.app", class:"btn btn-primary"%>
+    <%# Create a portfolio %> 
   </div>
-
-  <div id="Table">
-    <div class="overflow-x-auto">
-      <table class="table">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th> # Shares</th>
-            <th>Price</th>
-            <th>AVG Share price</th>
-            <th>Total Price</th>
-            <th>Payout Schedule</th>
-            <th>Div Yield</th>
-            <th>Div per share</th>
-            <th>Total Div</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- row 1 -->
-          <tr class="hover">
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
-          </tr>
-          <!-- row 2 -->
-          <tr class="hover">
-            <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-          </tr>
-          <!-- row 3 -->
-          <tr class="hover">
-            <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
-            <td>Red</td>
-          </tr>
-        </tbody>
-      </table>
+  <%# Portfolios will be displayed here and navigation will take place here as well%>
+  <div>
+    <div id="testing">
+      <!-- Turbo frame appears here -->
+      <%# Passes the portfolio_of_user variable from the controller to the portfolios partial as a variable called "portfolios" %>
+      <%= render "dashboard/portfolios", portfolios: @portfolio_of_user%>
     </div>
   </div>
+
+  <%# Displays the results of each portfolio%>
+  <% if params[:portfolio_id].present?%>
+    <%= render "stocks", stocks: @selectedPortfolio%>
+  <%end%>
+  
 </div>

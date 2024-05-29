@@ -1,0 +1,91 @@
+
+
+<div id="Table">
+  <%# Modify Dialog %>
+  <dialog id="modify_stock" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">New Portfolio</h3>
+         <%= form_with url: "/update_stock", method: :post, remote: true do |f| %>
+            <%= f.label :number_of_shares, "Number of Shares"%>
+            <%= f.number_field :number_of_shares %>
+            <%= f.label :price, "Price per Share" %>
+            <%= f.number_field :price, step: 0.01%>
+            <%= f.hidden_field :portfolio_id, value: params[:portfolio_id]%>
+            <%= f.hidden_field :holdingIdModify%>
+            <%= f.submit "Add"%>
+          <%end%>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+      <!---Exits if clicked outside or pressed 'ESC'--->
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+  </dialog>
+
+  <%# Delete Dialog %>
+  <dialog id="delete_stock" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">Delete Stock</h3>
+        <p>Are you sure you want to delete this stock?</p>
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn">Cancel</button>
+          </form>
+          <%# Confirm Deletion %>
+          <%= form_with url: "/delete_stock", method: :post, remote: true do |f| %>
+            <%= f.hidden_field :portfolio_id, value: params[:portfolio_id]%>
+            <%= f.hidden_field :holdingIdDelete%>
+            <%= f.submit "Confirm", class:"btn btn-warning"%>
+          <%end%>
+        </div>
+      </div>
+      <!---Exits if clicked outside or pressed 'ESC'--->
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+  </dialog>
+  <div class="overflow-x-auto">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th> # Shares</th>
+          <th>Price</th>
+          <th>AVG Share price</th>
+          <th>Total Value</th>
+          <th>Payout Schedule</th>
+          <th>Div Yield</th>
+          <th>Div per share</th>
+          <th>Total Div</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% stocks.each do |stock|%>
+          <tr class="hover">
+            <th><%=stock.stock_name%></th>
+            <td><%=stock.number_of_shares%></td>
+            <td>$<%=stock.share_price%></td>
+            <td>$<%=stock.avg_share_price%></td>
+            <td>$<%=stock.total_value%></td>
+            <td><%=PaymentSchedule.find(stock.payment_schedule_id).distribution_schedule%></td>
+            <td><%=stock.div_yield%>%</td>
+            <td><%=stock.div_per_share%></td>
+            <td><%=stock.total_div%></td>
+            <td>
+              <%# Will contain Add button%>
+              <%# Uses js to change form default values %>
+              <button class="btn mr-[15px]" onclick="modify_stock.showModal(), document.getElementById('number_of_shares').value = '<%=stock.number_of_shares%>',document.getElementById('price').value =  '<%=stock.share_price%>', document.getElementById('holdingIdModify').value = '<%=stock.id%>'">modify</button>
+              <button class="btn mr-[15px]" onclick="delete_stock.showModal(), document.getElementById('holdingIdDelete').value = '<%=stock.id%>'">delete</button>
+            </td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
