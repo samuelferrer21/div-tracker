@@ -1,0 +1,2 @@
+module DiversificationHelper
+end

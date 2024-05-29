@@ -44,7 +44,7 @@ class DashboardController < ApplicationController
 
     #Fetch new stock data from questrade
     stock_information = Faraday.new(url: "#{Token.find_by(user_id: current_user.id).api_server}v1/symbols?ids=#{PortfolioStock.find_by(id: params[:holdingIdModify]).symbol_id}") do |build|
-         build.request :authorization, 'Bearer', -> {session[:access_token] }
+         build.request :authorization, 'Bearer', -> {Token.find_by(user_id: current_user.id).access_token}
          build.response :raise_error
     end
 

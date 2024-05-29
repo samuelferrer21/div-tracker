@@ -36,11 +36,12 @@
     <button class="btn mr-[15px]" onclick="create_portfolio.showModal()">New Portfolio</button>
     <%# Connect to Questrade %>
     <%= button_to "Connect to Questrade", "https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=code&redirect_uri=https://div-tracker-tjzx7q7eeq-uc.a.run.app", class:"btn btn-primary"%>
-    <%# Create a portfolio %> 
+    <%# Redirct to Diversification page %>
+    <%= button_to "Diversification", diversification_path, method: :get,params: { portfolio_id: params[:portfolio_id] }, class:"btn" %>
   </div>
   <%# Portfolios will be displayed here and navigation will take place here as well%>
   <div>
-    <div id="testing">
+    <div id="testing" class =  "flex justify-evenly w-1/2">
       <!-- Turbo frame appears here -->
       <%# Passes the portfolio_of_user variable from the controller to the portfolios partial as a variable called "portfolios" %>
       <%= render "dashboard/portfolios", portfolios: @portfolio_of_user%>

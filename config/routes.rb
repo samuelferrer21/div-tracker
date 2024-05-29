@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'diversification/index'
   get 'search/index'
   devise_for :users
 
@@ -26,4 +27,7 @@ Rails.application.routes.draw do
 
   #Add a stock
   post "new_holding", to: "search#add_stock"
+
+  #Diversification
+  get "diversification", to: "diversification#index"
 end
