@@ -14,8 +14,8 @@
         <%# Add holding Form %>
         <%= form_with url: "/new_holding", method: :post, remote: true do |f| %>
             <%= f.select :portfolio_id, options_from_collection_for_select(Portfolio.where(user_id: current_user.id).all, :id, :portfolio_name),  { prompt: "Select Portfolio" } %>
+            <%= f.select :distribution_id, options_from_collection_for_select(PaymentSchedule.all, :id, :distribution_schedule),  { prompt: "Select Distribution Frequency" } %>
             <%= f.number_field :number_of_shares %>
-            <%= f.number_field :avg_share_price, min: 1, step: 0.01 %>
             <%= f.hidden_field :symbol_id%>
             <%= f.submit "Add"%>
         <%end%>
@@ -54,7 +54,7 @@
                     <td>
                         <%# Will contain Add button%>
                         <%# Uses js to change form default values %>
-                        <button class="btn mr-[15px]" onclick="add_stock.showModal(), document.getElementById('symbol_id').value = '<%=symbol[:symbolId]%>'">login</button>
+                        <button class="btn mr-[15px]" onclick="add_stock.showModal(), document.getElementById('symbol_id').value = '<%=symbol[:symbolId]%>'">Add</button>
                     </td>
                 </tr>
             <%end%>

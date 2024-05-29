@@ -1,0 +1,3 @@
+CockaroachDB
+user:samuel
+pass:dccg90KTK5v92mRVu_L3bQ

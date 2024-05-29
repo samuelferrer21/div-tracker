@@ -60,7 +60,7 @@ class SearchController < ApplicationController
     #check if token needs to be updated
     update_token
 
-    #Fetch extra data
+    #Fetch specific stock data
     stock_information = Faraday.new(url: "#{session[:api_server]}v1/symbols?ids=#{params[:symbol_id]}") do |build|
          build.request :authorization, 'Bearer', -> {session[:access_token] }
          build.response :raise_error
@@ -70,11 +70,39 @@ class SearchController < ApplicationController
       stocks_information = JSON.parse(stock_response.body)
 
 
-      puts "test #{stocks_information["symbols"][0]["symbol"]}"
-      puts "test #{stocks_information["symbols"][0]["securityType"]}"
-      puts "test #{stocks_information["symbols"][0]["symbolId"]}"
-      puts "test #{stocks_information["symbols"][0]["description"]}"
 
 
+      # Determines what type of calculation needed for the total dividends
+      def determine_payment_schedule(schedule)
+        distribution = nil
+        if "Annual" == schedule
+          distribution = 1
+        elsif "Semi-Annual" == schedule
+          distribution = 2
+        elsif "Quarterly" == schedule
+          distribution = 4
+        elsif "Monthly" == schedule
+          distribution = 12
+        end
+
+        return distribution
+      end
+
+
+      #Insert new stock with the retrieved data
+      new_stock = PortfolioStock.create(
+        portfolio_id: params[:portfolio_id].to_i,
+        stock_name: stocks_information["symbols"][0]["symbol"],
+        number_of_shares: params[:number_of_shares].to_i,
+        share_price: stocks_information["symbols"][0]["prevDayClosePrice"].to_f,
+        avg_share_price: stocks_information["symbols"][0]["prevDayClosePrice"].to_f,
+        total_value: (params[:number_of_shares].to_f * stocks_information["symbols"][0]["prevDayClosePrice"].to_f),
+        payment_schedule_id: params[:distribution_id].to_i,
+        div_yield: stocks_information["symbols"][0]["yield"].to_f,
+        div_per_share: stocks_information["symbols"][0]["dividend"].to_f,
+        total_div: (params[:number_of_shares].to_f * stocks_information["symbols"][0]["dividend"].to_f) * determine_payment_schedule(PaymentSchedule.find(params[:distribution_id].to_i).distribution_schedule),
+        symbol_id: stocks_information["symbols"][0]["symbolId"]
+      )
+      new_stock.save
   end
 end
