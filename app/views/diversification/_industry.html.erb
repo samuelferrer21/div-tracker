@@ -1,0 +1,17 @@
+<div class="card w-1/2  bg-base-300 shadow-2xl md:w-auto">
+  <div class="card-body">
+        <h2 class="card-title"> Industry Allocation</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <%# Portfolio Info, info displayed Largest holding, smallest and Total value%>
+            <div class="col-span-1 md:col-span-1">
+                <h3>Largest Holding: </h3>
+                <h3>Smallest Holding: </h3>
+            </div>
+            <%# Contains the chart %>
+            <div class="col-span-1 md:col-span-1">
+                <%# <%=pie_chart @selectedPortfolio.group(:stock_name).sum(:number_of_shares), donut: true, legend: false, hole: 0.5, adapter: "chartjs"  %> 
+                <%=pie_chart @selectedPortfolio.group(:industry).count, donut: true, legend: false, hole: 0.5, adapter: "chartjs"  %>
+            </div>
+        </div>
+    </div>
+</div>

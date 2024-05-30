@@ -1,17 +1,19 @@
 <div>
   <%# Portfolios will be displayed here and navigation will take place here as well%>
-  <div>
-    <div id="testing" class =  "flex justify-evenly w-1/2">
-      <%# No Turbo needed as we wont create portfolios here %>
-      <%# Passes the portfolio_of_user variable from the controller to the portfolios partial as a variable called "portfolios" %>
-      <%= render "dashboard/portfolios", portfolios: @portfolio_of_user%>
+  <div id="testing" class =  "flex justify-evenly w-1/2">
+    <%# No Turbo needed as we wont create portfolios here %>
+    <%# Passes the portfolio_of_user variable from the controller to the portfolios partial as a variable called "portfolios" %>
+    <%= render "dashboard/portfolios", portfolios: @portfolio_of_user%>
+  </div>
+  <%# Contains the graphs %>
+  <div id="data" class= "grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div id="security_type">
+      <%=render "diversification/security"%>
+    </div>
+    <div id="industry" class="col-span-1 md:col-span-1">
+      <%=render "diversification/industry"%>
     </div>
   </div>
-  <div id="security_type">
-    <%=render "diversification/security"%>
-
-  </div>
-  <div id="industry">
-
-  </div>
 </div>
+
+

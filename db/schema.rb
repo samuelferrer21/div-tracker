@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_23_220921) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_30_002955) do
   create_schema "crdb_internal"
 
   create_table "payment_schedules", force: :cascade do |t|
@@ -33,6 +33,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_23_220921) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.text "symbol_id"
+    t.text "industry"
+    t.date "ex_dividend"
     t.index ["payment_schedule_id"], name: "index_portfolio_stocks_on_payment_schedule_id"
     t.index ["portfolio_id"], name: "index_portfolio_stocks_on_portfolio_id"
   end

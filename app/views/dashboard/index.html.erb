@@ -41,7 +41,7 @@
   </div>
   <%# Portfolios will be displayed here and navigation will take place here as well%>
   <div>
-    <div id="testing" class =  "flex justify-evenly w-1/2">
+    <div id="testing" class="w-1/2 flex justify-evenly">
       <!-- Turbo frame appears here -->
       <%# Passes the portfolio_of_user variable from the controller to the portfolios partial as a variable called "portfolios" %>
       <%= render "dashboard/portfolios", portfolios: @portfolio_of_user%>
