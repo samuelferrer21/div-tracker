@@ -8,8 +8,10 @@ The purpose of this project is to utilize the official Questrade API and allow u
   - Total Dividend calculations (Monthly, Quarterly, Yearly)
   - Portfolio value, total yield
   - Dividend payout Schedule Calander
-  - Visual graphs accompanying the portfolio
   - Ability to share each portfolio
+
+# In-Progress
+  - Graph for Dividend payments each month
 
 # Current Features
   - Working login and sign up
@@ -18,6 +20,9 @@ The purpose of this project is to utilize the official Questrade API and allow u
   - DB is successfly communicating with the the deployed app
   - Search stocks
   - Multiple portfolios
+  - Adding, Modifying and Delete Stocks
+  - Graphs for Stock allocation and Industry Allocation
+  - Portfolio value and Total yield is displayed
 
 # Resources used
   - Financial information gathered by the official Questrade API
