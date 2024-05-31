@@ -29,19 +29,9 @@ class DiversificationController < ApplicationController
     #Array holds the distribution number and stock_id
     @calanderValue={"January"=>0, "February"=>0, "March"=>0, "April"=>0, "May"=>0, "June"=>0, "July"=>0, "August"=>0, "September"=>0, "October"=>0, "November"=>0, "December"=>0}
 
-    datetest = Date.parse("2024-07-02")
-    puts "Beginning #{datetest.strftime("%B")}"
-    3.times do
-      month_nametest = datetest.advance(months:3).strftime("%B")
-      datetest = datetest.advance(months:3)
-      puts month_nametest
-
-    end
-
-
     #Grabs the stock data for the selected portfolio
     if !params[:portfolio_id].nil?
-      @selectedPortfolio = PortfolioStock.where(portfolio_id: params[:portfolio_id]).all
+      @selectedPortfolio = PortfolioStock.includes(:payment_schedule).where(portfolio_id: params[:portfolio_id]).all
 
       @selectedPortfolio.each do |stock|
         @totalvalue += stock.total_value.to_f.round(2)
@@ -49,52 +39,45 @@ class DiversificationController < ApplicationController
 
         stockDate = stock.ex_dividend
 
+        puts
+
         #Proccess stocks only with dividend
         if stock.div_yield > 0
           #calculate the div that is distributed on payout which is (# shares *div per share)
           total_div_distributed = stock.div_per_share.to_f * stock.number_of_shares.to_f.round(2)
 
-          #Append this value to the proper month and append it to the distribution schedule set in db
-          #Appends to the month name
-
           #outputs the month name
           date = Date.parse(stockDate.to_s)
           month_name = date.strftime("%B")
           #Adds to the value of the month
-          # @calanderValue[month_name] += total_div_distributed
-          # #Adds to according to the schedule
-          # if determine_payment_schedule(stock.schedule) == 2
-          #   #6 months from ex dividend date
-          #   #Gets the month from 6 months from ex dividend date
-          #   future = date.advance(months:6).strftime("%B")
-          #   #add to the value of the month
-          #   @calanderValue[future] += total_div_distributed
-
-          # elsif determine_payment_schedule(stock.schedule) == 4
-          #   #3 months from ex dividend date
-
-          #   #Gets the month from 6 months from ex dividend date
-          #   3.times do |i|
-          #     futureQuarterly = date.advance(months:3).strftime("%B")
-          #     #add to the value of the month
-          #     @calanderValue[futureQuarterly] += total_div_distributed
-          #   end
-
-
-          # elsif determine_payment_schedule(stock.schedule) == 12
-          #   #1 month from ex dividend date
-          #   #Gets the month from 6 months from ex dividend date
-          #   11.times do |i|
-          #     futureQuarterly = date.advance(months:1).strftime("%B")
-          #     #add to the value of the month
-          #     @calanderValue[futureQuarterly] += total_div_distributed
-          #   end
-          # end
-
+          @calanderValue[month_name] += total_div_distributed.round(2)
+          #Adds to according to the schedule
+          if determine_payment_schedule(stock.payment_schedule.distribution_schedule) == 2
+            #Gets the month from 6 months from ex dividend date
+            future = date.advance(months:6).strftime("%B")
+            #add to the value of the month
+            @calanderValue[future] += total_div_distributed.round(2)
+          elsif determine_payment_schedule(stock.payment_schedule.distribution_schedule) == 4
+            #Gets the month from 6 months from ex dividend date
+            3.times do |i|
+              futureQuarterly = date.advance(months:3).strftime("%B")
+              date = date.advance(months:3)
+              #add to the value of the month
+              @calanderValue[futureQuarterly] += total_div_distributed.round(2)
+            end
+          elsif determine_payment_schedule(stock.payment_schedule.distribution_schedule) == 12
+            #1 month from ex dividend date
+            11.times do |i|
+              futureQuarterly = date.advance(months:1).strftime("%B")
+              date = date.advance(months:3)
+              #add to the value of the month
+              @calanderValue[futureQuarterly] += total_div_distributed.round(2)
+            end
+          end
         end
-
       end
     end
+    puts @calanderValue.inspect
 
     #Data for the dividend calculator
 

@@ -1,25 +1,31 @@
 <div>
   <%# Portfolios will be displayed here and navigation will take place here as well%>
-  <div id="testing" class =  "flex justify-evenly w-1/2">
+  <div id="portfolios" role="tablist" class ="tablist tabs-bordered w-fit flex">
     <%# No Turbo needed as we wont create portfolios here %>
     <%# Passes the portfolio_of_user variable from the controller to the portfolios partial as a variable called "portfolios" %>
-    <%= render "dashboard/portfolios", portfolios: @portfolio_of_user%>
+    <%= render "diversification/portfolios", portfolios: @portfolio_of_user%>
   </div>
-  <%# Contains the graphs %>
-  <div id="data" class= "grid grid-cols-1 md:grid-cols-2 gap-4 flex shrink">
-    <div id="security_type">
-      <%=render "diversification/security"%>
+  <% if PortfolioStock.where(portfolio_id: params[:portfolio_id]).all.count != 0 %>
+    <%# Contains the graphs %>
+    <div id="data" class= "grid grid-cols-1 md:grid-cols-2 gap-4 flex shrink">
+      <div id="security_type">
+        <%=render "diversification/security"%>
+      </div>
+      <div id="industry" class="col-span-1 md:col-span-1">
+        <%=render "diversification/industry"%>
+      </div>
     </div>
-    <div id="industry" class="col-span-1 md:col-span-1">
-      <%=render "diversification/industry"%>
+    <%# Divider Top is Diversification Below is Dividend data %>
+    <div class="divider"></div>
+    <%# Dividends Info %>
+    <div class="md:flex">
+      <%= render "diversification/dividendOverview"%>
+      <%= render "diversification/dividendsPerMonth"%>
     </div>
-  </div>
-  <%# Divider Top is Diversification Below is Dividend data %>
-  <div class="divider"></div>
-  <%# Dividend Total and average yield %>
-  <div>
-    <%= render "diversification/dividendOverview"%>
-  </div>
+  <%else%>
+    <h1>Add Stocks to get data</h1>
+  <%end%>
+  
 </div>
 
 

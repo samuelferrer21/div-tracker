@@ -1,12 +1,32 @@
-<div id="dividend_overview" class="card bg-base-300 shadow-2xl w-full mb-[5rem] md:w-1/4">
+<%# <div id="dividend_overview" class="card bg-base-300 shadow-2xl w-full mr-4 mb-8 md:w-1/4 md:wb-[5rem] ">
     <div class="card-body">
         <h2 class="card-title"> Dividend Overview</h2>
         <div id="dividend_content" >
-            <div class=>
-                <h2>Total Dividend (annual): <%=@totaldividend%></h2>
-                <h2>Portfolio Yield: <%= number_to_percentage((@totaldividend.round(2) / @totalvalue.round(2))*100,  format: "%n%",  precision: 2)%></h2>
-                <h2>Total Value:$<%=@totalvalue.round(2)%></h2>
-            </div>
+            <div>
+                <h2>Total Dividend (annual): <%=@totaldividend</h2>
+                <h2>Portfolio Yield: <%= number_to_percentage((@totaldividend.round(2) / @totalvalue.round(2))*100,  format: "%n%",  precision: 2)</h2>
+               <%# <h2>Total Value:$<%=@totalvalue.round(2)</h2> %>
+            <%# </div>
         </div>
     </div>
+</div> %>
+
+<div class="stats bg-base-300 stats-vertical shadow shadow-2xl w-full mr-4 mb-8 xl:w-1/4 xl:wb-[5rem] md:mb-[5rem]">
+  <div class="stat">
+    <div class="stat-title">Total Dividend</div>
+    <div class="stat-value"><%=@totaldividend%></div>
+    <div class="stat-desc">(annual)</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-title">Portfolio Yield</div>
+    <div class="stat-value"><%= number_to_percentage((@totaldividend.round(2) / @totalvalue.round(2))*100,  format: "%n%",  precision: 2)%></div>
+    <div class="stat-desc">Calculated by total dividend / totalvalue</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-title">Total Value</div>
+    <div class="stat-value">$<%=@totalvalue.round(2)%></div>
+    <div class="stat-desc">value of current portfolio</div>
+  </div>
 </div>

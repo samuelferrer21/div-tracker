@@ -1,0 +1,10 @@
+<div id="dividend_overview" class="card bg-base-300 shadow-2xl w-full mb-[5rem]">
+    <div class="card-body">
+        <h2 class="card-title"> Dividends Per Month Overview</h2>
+        <div id="dividend_total" >
+            <div >
+                <%= column_chart(@calanderValue, xtitle: "Month", ytitle: "Dividends") %>
+            </div>
+        </div>
+    </div>
+</div>
