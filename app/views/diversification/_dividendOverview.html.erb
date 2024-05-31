@@ -1,0 +1,12 @@
+<div id="dividend_overview" class="card bg-base-300 shadow-2xl w-full mb-[5rem] md:w-1/4">
+    <div class="card-body">
+        <h2 class="card-title"> Dividend Overview</h2>
+        <div id="dividend_content" >
+            <div class=>
+                <h2>Total Dividend (annual): <%=@totaldividend%></h2>
+                <h2>Portfolio Yield: <%= number_to_percentage((@totaldividend.round(2) / @totalvalue.round(2))*100,  format: "%n%",  precision: 2)%></h2>
+                <h2>Total Value:$<%=@totalvalue.round(2)%></h2>
+            </div>
+        </div>
+    </div>
+</div>

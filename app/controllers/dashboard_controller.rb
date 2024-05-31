@@ -16,8 +16,6 @@ class DashboardController < ApplicationController
 
   end
 
-
-
   def create
     #Creates a new portfolio of the user if it does not exist
     if Portfolio.where(user_id: current_user.id, portfolio_name: params[:portfolio_name]).empty?

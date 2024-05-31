@@ -6,13 +6,19 @@
     <%= render "dashboard/portfolios", portfolios: @portfolio_of_user%>
   </div>
   <%# Contains the graphs %>
-  <div id="data" class= "grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div id="data" class= "grid grid-cols-1 md:grid-cols-2 gap-4 flex shrink">
     <div id="security_type">
       <%=render "diversification/security"%>
     </div>
     <div id="industry" class="col-span-1 md:col-span-1">
       <%=render "diversification/industry"%>
     </div>
+  </div>
+  <%# Divider Top is Diversification Below is Dividend data %>
+  <div class="divider"></div>
+  <%# Dividend Total and average yield %>
+  <div>
+    <%= render "diversification/dividendOverview"%>
   </div>
 </div>
 
