@@ -101,6 +101,8 @@ class SearchController < ApplicationController
         div_yield: stocks_information["symbols"][0]["yield"].to_f,
         div_per_share: stocks_information["symbols"][0]["dividend"].to_f,
         total_div: (params[:number_of_shares].to_f * stocks_information["symbols"][0]["dividend"].to_f) * determine_payment_schedule(PaymentSchedule.find(params[:distribution_id].to_i).distribution_schedule),
+        industry: stocks_information["symbols"][0]["industrySector"],
+        ex_dividend: stocks_information["symbols"][0]["dividendDate"],
         symbol_id: stocks_information["symbols"][0]["symbolId"]
       )
       new_stock.save

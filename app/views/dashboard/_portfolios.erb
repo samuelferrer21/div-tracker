@@ -1,5 +1,11 @@
 
 <%# Uses the passed variable "portfolios" and creates the buttons of each entry %>
-<% portfolios.each do |f| %>
-    <%= button_to "#{f.portfolio_name}", dashboard_path, method: :get, params: { portfolio_id: f.id } %>
+<% portfolios.each do |f|  %>
+
+    <%if params[:portfolio_id].to_s == f.id.to_s %>
+        <%= link_to "#{f.portfolio_name}", dashboard_path(portfolio_id:  f.id), role:"tab", class:"tab tab-active"%>
+    <%else%>
+        <%= link_to "#{f.portfolio_name}", dashboard_path(portfolio_id:  f.id), role:"tab", class:"tab"  %>
+    <%end%>
 <%end%>
+

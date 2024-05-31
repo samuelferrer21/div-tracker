@@ -15,7 +15,7 @@ module.exports = {
     },
   },
   daisyui: {
-    themes: ["light", "dark", "cupcake"],
+    themes: ["light", "dark", "cupcake", "nord", "dracula"],
   },
   plugins: [
     require('@tailwindcss/forms'),

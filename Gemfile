@@ -80,3 +80,6 @@ gem 'pg'
 
 #cockroachdb
 gem 'activerecord-cockroachdb-adapter'
+
+#chartkick
+gem "chartkick"

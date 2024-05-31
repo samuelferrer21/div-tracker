@@ -13,6 +13,8 @@
 #Ignore root cert
 /root.crt
 
+/CockaroachDB.txt
+
 #Master key
 /master.key
 

@@ -1,0 +1,17 @@
+<div class="card w-full bg-base-300 shadow-2xl md:w-auto">
+  <div class="card-body">
+    <h2 class="card-title"> Portfolio Stock Allocation</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <%# Portfolio Info, info displayed Largest holding, smallest and Total value%>
+      <div class="col-span-1 md:col-span-1">
+        <h3>Largest Holding: <%=@selectedPortfolio.order(number_of_shares: 'desc').first.stock_name%></h3>
+        <h3>Smallest Holding: <%=@selectedPortfolio.order(number_of_shares:'asc').first.stock_name%></h3>
+        <h3>Total Value: $<%=@totalvalue.round(2)%></h3>
+      </div>
+      <%# Contains the chart %>
+      <div class="col-span-1 md:col-span-1">
+        <%=pie_chart @selectedPortfolio.group(:stock_name).sum(:number_of_shares), donut: true, legend: false, hole: 0.5, adapter: "chartjs"  %>     
+      </div>
+    </div>
+  </div>
+</div>

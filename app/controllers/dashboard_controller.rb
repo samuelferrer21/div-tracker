@@ -16,8 +16,6 @@ class DashboardController < ApplicationController
 
   end
 
-
-
   def create
     #Creates a new portfolio of the user if it does not exist
     if Portfolio.where(user_id: current_user.id, portfolio_name: params[:portfolio_name]).empty?
@@ -44,7 +42,7 @@ class DashboardController < ApplicationController
 
     #Fetch new stock data from questrade
     stock_information = Faraday.new(url: "#{Token.find_by(user_id: current_user.id).api_server}v1/symbols?ids=#{PortfolioStock.find_by(id: params[:holdingIdModify]).symbol_id}") do |build|
-         build.request :authorization, 'Bearer', -> {session[:access_token] }
+         build.request :authorization, 'Bearer', -> {Token.find_by(user_id: current_user.id).access_token}
          build.response :raise_error
     end
 
@@ -82,6 +80,8 @@ class DashboardController < ApplicationController
       div_yield: stocks_information["symbols"][0]["yield"].to_f,
       div_per_share: stocks_information["symbols"][0]["dividend"].to_f,
       total_div: (params[:number_of_shares].to_f * stocks_information["symbols"][0]["dividend"].to_f) * paid.to_f,
+      industry: stocks_information["symbols"][0]["industrySector"],
+        ex_dividend: stocks_information["symbols"][0]["dividendDate"],
       symbol_id: stocks_information["symbols"][0]["symbolId"]
       )
 
