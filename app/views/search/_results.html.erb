@@ -13,11 +13,11 @@
         <% end %>
         <%# Add holding Form %>
         <%= form_with url: "/new_holding", method: :post, remote: true do |f| %>
-            <%= f.select :portfolio_id, options_from_collection_for_select(Portfolio.where(user_id: current_user.id).all, :id, :portfolio_name),  { prompt: "Select Portfolio" } %>
-            <%= f.select :distribution_id, options_from_collection_for_select(PaymentSchedule.all, :id, :distribution_schedule),  { prompt: "Select Distribution Frequency" } %>
-            <%= f.number_field :number_of_shares %>
-            <%= f.hidden_field :symbol_id%>
-            <%= f.submit "Add"%>
+            <%= f.select :portfolio_id, options_from_collection_for_select(Portfolio.where(user_id: current_user.id).all, :id, :portfolio_name),  { prompt: "Select Portfolio" }, class:"select select-bordered" %>
+            <%= f.select :distribution_id, options_from_collection_for_select(PaymentSchedule.all, :id, :distribution_schedule),  { prompt: "Select Distribution Frequency" }, class:"select select-bordered" %>
+            <%= f.number_field :number_of_shares, class:"input input-bordered w-full max-w-xs" %>
+            <%= f.hidden_field :symbol_id %>
+            <%= f.submit "Add", class:"btn"%>
         <%end%>
 
         <div class="modal-action">
