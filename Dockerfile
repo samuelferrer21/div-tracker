@@ -2,7 +2,7 @@
 FROM ruby:3.1.2
 
 # Set environment variables
-ENV RAILS_ENV=development \
+ENV RAILS_ENV=production \
     RAILS_SERVE_STATIC_FILES=true \
     DATABASE_URL=cockroachdb://samuel:dccg90KTK5v92mRVu_L3bQ@div-tracker-14421.5xj.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full
 
