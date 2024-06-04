@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark"> 
   <head>
     <title>DivTracker</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= stylesheet_link_tag  "tailwind", "inter-font", "data-turbo-track": "reload", as:"style" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    
+    <%= render "layouts/navbar" %>
+      <main class="container mx-auto mt-28 px-5 border-none">
+         <p class="notice"><%= notice %></p>
+
+          <p class="alert border-0 bg-base-100"><%= alert  %></p>
+          
+        <%= yield %>
+        
+      </main>
+    <%= render "layouts/footer" %>
+    
   </body>
 </html>
+

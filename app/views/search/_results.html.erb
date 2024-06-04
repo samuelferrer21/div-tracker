@@ -1,0 +1,62 @@
+
+<div id="Table">
+    <div class="overflow-x-auto">
+        <%# Dialog box %>
+      <dialog id="add_stock" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">Add to Portfolio</h3>
+
+        <%# Add holding Form %>
+        <%= form_with url: "/new_holding", method: :post, remote: true, class:"grid grid-cols-1 w-full" do |f|%>
+            <%= f.label :portfolio_id, "Portfolio"%>
+            <%= f.select :portfolio_id, options_from_collection_for_select(Portfolio.where(user_id: current_user.id).all, :id, :portfolio_name),  { prompt: "Select Portfolio" }, class:"select select-bordered", required: true %>
+            <%= f.label :distribution_id, "Payment Schedule"%>
+            <%= f.select :distribution_id, options_from_collection_for_select(PaymentSchedule.all, :id, :distribution_schedule),  { prompt: "Select Distribution Frequency" }, class:"select select-bordered", required: true %>
+            <%= f.label :number_of_shares, "Number of Shares"%>
+            <%= f.number_field :number_of_shares, class:"input input-bordered w-full max-w-xs mb-4", required: true, min: "1" %>
+            <%= f.hidden_field :symbol_id %>
+            <%= f.submit "Add", class:"btn"%>
+        <%end%>
+
+          <div class="modal-action">
+            <form method="dialog">
+              <!-- if there is a button, it will close the modal -->
+              <button class="btn">Close</button>
+            </form>
+          </div>
+        </div>
+        <!---Exits if clicked outside or pressed 'ESC'--->
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+        </dialog>
+        <table class="table">
+            <!-- head -->
+            <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Description</th>
+                <th>Exchange</th>
+                <th>Security Type</th>
+                <th>Currency</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @symbols.each do |symbol|%>
+                <tr class="hover">
+                    <td><%=symbol[:symbol]%></td>
+                    <td><%=symbol[:description]%></td>
+                    <td><%=symbol[:listingExchange]%></td>
+                    <td><%=symbol[:securityType]%></td>
+                    <td><%=symbol[:currency]%></td>
+                    <td>
+                        <%# Will contain Add button%>
+                        <%# Uses js to change form default values %>
+                        <button class="btn mr-[15px]" onclick="add_stock.showModal(), document.getElementById('symbol_id').value = '<%=symbol[:symbolId]%>'">Add</button>
+                    </td>
+                </tr>
+            <%end%>
+            </tbody>
+      </table>
+    </div>
+</div>

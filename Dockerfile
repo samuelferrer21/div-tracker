@@ -1,62 +1,50 @@
-# syntax = docker/dockerfile:1
+# Use the official Ruby image with your desired version
+FROM ruby:3.1.2
 
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.1.2
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
-
-# Rails app lives here
-WORKDIR /rails
-
-# Set production environment
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+# Set environment variables
+ENV RAILS_ENV=production \
+    RAILS_SERVE_STATIC_FILES=true \
+    DATABASE_URL=cockroachdb://samuel:dccg90KTK5v92mRVu_L3bQ@div-tracker-14421.5xj.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full
 
 
-# Throw-away build stage to reduce size of final image
-FROM base as build
+# Install essential Linux packages
+RUN apt-get update -qq && apt-get install -y \
+    build-essential \
+    nodejs \
+    npm \
+    && npm install -g yarn 
 
-# Install packages needed to build gems
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
 
-# Install application gems
+
+# Set working directory in the container
+WORKDIR /app
+
+# Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
 
-# Copy application code
+# Install Ruby dependencies
+RUN gem install bundler && bundle install --jobs 20 --retry 5
+RUN   npm i -D daisyui@latest
+
+RUN apt-get update && apt-get install -y \
+  postgresql-client \
+  libpq-dev
+
+#DB
+RUN curl --create-dirs -o $HOME/.postgresql/root.crt 'https://cockroachlabs.cloud/clusters/b0313d8c-005f-4347-bc27-63c34334c6c8/cert'
+
+#RUN export DATABASE_URL='cockroachdb://samuel:dccg90KTK5v92mRVu_L3bQ@div-tracker-14421.5xj.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full'
+# Copy the rest of the application code
 COPY . .
 
-# Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile app/ lib/
+# Copy Tailwind CSS file into the assets pipeline
+#COPY tailwind.css ./app/assets/stylesheets/
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+# Precompile assets
+RUN bundle exec rails assets:precompile
 
-
-# Final stage for app image
-FROM base
-
-# Install packages needed for deployment
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-# Copy built artifacts: gems, application
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /rails /rails
-
-# Run and own only the runtime files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER rails:rails
-
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
-# Start the server by default, this can be overwritten at runtime
+# Expose port 3000 to the outside world
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+
+# Start the Rails server
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

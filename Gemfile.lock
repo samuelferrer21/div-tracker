@@ -59,6 +59,10 @@ GEM
       activemodel (= 7.1.3.2)
       activesupport (= 7.1.3.2)
       timeout (>= 0.4.0)
+    activerecord-cockroachdb-adapter (7.1.0)
+      activerecord (~> 7.1.0)
+      pg (~> 1.2)
+      rgeo-activerecord (~> 7.0.0)
     activestorage (7.1.3.2)
       actionpack (= 7.1.3.2)
       activejob (= 7.1.3.2)
@@ -78,6 +82,7 @@ GEM
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     bigdecimal (3.1.7)
     bindex (0.8.1)
     bootsnap (1.18.3)
@@ -92,6 +97,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    chartkick (5.0.7)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -99,9 +105,19 @@ GEM
     debug (1.9.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    devise (4.9.4)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     drb (2.2.1)
     error_highlight (0.6.0)
     erubi (1.12.0)
+    faraday (2.9.0)
+      faraday-net_http (>= 2.0, < 3.2)
+    faraday-net_http (3.1.0)
+      net-http
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.4)
@@ -131,6 +147,8 @@ GEM
     minitest (5.22.3)
     msgpack (1.7.2)
     mutex_m (0.2.0)
+    net-http (0.4.1)
+      uri
     net-imap (0.4.10)
       date
       net-protocol
@@ -153,6 +171,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.3-x86_64-linux)
       racc (~> 1.4)
+    orm_adapter (0.5.0)
+    pg (1.5.6)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -202,7 +222,14 @@ GEM
     regexp_parser (2.9.0)
     reline (0.5.0)
       io-console (~> 0.5)
+    responders (3.1.1)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.6)
+    rgeo (3.0.1)
+    rgeo-activerecord (7.0.1)
+      activerecord (>= 5.0)
+      rgeo (>= 1.0.0)
     rubyzip (2.3.2)
     selenium-webdriver (4.19.0)
       base64 (~> 0.2)
@@ -225,6 +252,18 @@ GEM
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
     stringio (3.1.0)
+    tailwindcss-rails (2.3.0)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.3.0-aarch64-linux)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.3.0-arm-linux)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.3.0-arm64-darwin)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.3.0-x86_64-darwin)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.3.0-x86_64-linux)
+      railties (>= 6.0.0)
     thor (1.3.1)
     timeout (0.4.1)
     turbo-rails (2.0.5)
@@ -233,6 +272,9 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uri (0.13.0)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -256,18 +298,24 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord-cockroachdb-adapter
   bootsnap
   capybara
+  chartkick
   debug
+  devise
   error_highlight (>= 0.4.0)
+  faraday
   importmap-rails
   jbuilder
+  pg
   puma (>= 5.0)
   rails (~> 7.1.3, >= 7.1.3.2)
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  tailwindcss-rails (~> 2.3)
   turbo-rails
   tzinfo-data
   web-console

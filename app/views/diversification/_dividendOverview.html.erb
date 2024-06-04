@@ -1,0 +1,20 @@
+<%# Partial used to give a overview of the selected portfolio. %>
+<div class="stats bg-base-300 stats-vertical shadow shadow-2xl w-full mr-4 mb-8 xl:w-1/4 xl:wb-[5rem] md:mb-[5rem]">
+  <div class="stat">
+    <div class="stat-title">Total Dividend</div>
+    <div class="stat-value">$<%=@totaldividend.round(2)%></div>
+    <div class="stat-desc">(annual)</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-title">Portfolio Yield</div>
+    <div class="stat-value"><%= number_to_percentage((@totaldividend.round(2) / @totalvalue.round(2))*100,  format: "%n%",  precision: 2)%></div>
+    <div class="stat-desc">Calculated by total dividend / totalvalue</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-title">Total Value</div>
+    <div class="stat-value">$<%=@totalvalue.round(2)%></div>
+    <div class="stat-desc">value of current portfolio</div>
+  </div>
+</div>

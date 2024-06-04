@@ -14,10 +14,6 @@ The purpose of this project is to utilize the official Questrade API and allow u
   - Graph for Dividend payments each month
 
 # Current Features
-  - Working login and sign up
-  - Retrieval of authorization tokens from Questrade
-  - Site is currently accessible from Google Cloud Run
-  - DB is successfly communicating with the the deployed app
   - Search stocks
   - Multiple portfolios
   - Adding, Modifying and Delete Stocks
@@ -29,3 +25,4 @@ The purpose of this project is to utilize the official Questrade API and allow u
   - Styling is by Tailwind and Daisy UI
   - Hosted on Google Cloud Run (Free Tier)
   - DB hosted on CockroachDB (Free Tier)
+

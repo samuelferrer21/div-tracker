@@ -1,0 +1,36 @@
+<div>
+  <h1 class="font-bold text-4xl">Search</h1>
+  <%# Divider %>
+  <div class="flex flex-col w-full">
+    <div class="divider"></div>
+  </div>
+  <%# Results flash %>
+  <% if flash.now[:message] %>
+    <div class="alert alert-info alert-dismissible fade show mb-4">
+      <%= flash[:message] %>
+    </div>
+  <% end %>
+  <%# Added Stock flash %>
+  <% if flash.now[:success] %>
+    <div class="alert alert-success mb-4">
+      <%= flash[:success] %>
+    </div>
+  <% end %>
+  <%# Search Form input %>
+   <%= form_with url:search_results_path, method: :get, class: "w-fit" do |form| %>
+      <%= form.text_field :query, class:"bg-neutral", placeholder: "Ex: T.to / Telus", class: "input input-bordered"%>
+      <%= form.submit "Search", class: "btn btn-active btn-primary" %>
+    <% end %>
+    
+
+    <%# Results %>
+    <%# if the results have anything %>
+    <%if @symbols.present?%>
+      <%=render "search/results"%>
+      <%else%>
+      <div>
+        <h2>Enter in a ticker symbol or the name of the stock</h2>
+      </div>
+    <%end%>
+
+</div>
