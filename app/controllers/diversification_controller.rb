@@ -7,7 +7,7 @@ class DiversificationController < ApplicationController
 
      # Determines what type of calculation needed for the total dividends
      def determine_payment_schedule(schedule)
-      distribution = nil
+      distribution = 0
       if "Annual" == schedule
         distribution = 1
       elsif "Semi-Annual" == schedule
@@ -17,7 +17,6 @@ class DiversificationController < ApplicationController
       elsif "Monthly" == schedule
         distribution = 12
       end
-
       return distribution
     end
 
@@ -32,6 +31,9 @@ class DiversificationController < ApplicationController
     #Grabs the stock data for the selected portfolio
     if !params[:portfolio_id].nil?
       @selectedPortfolio = PortfolioStock.includes(:payment_schedule).where(portfolio_id: params[:portfolio_id]).all
+
+      puts "test: #{@selectedPortfolio.inspect}"
+
 
       @selectedPortfolio.each do |stock|
         @totalvalue += stock.total_value.to_f.round(2)

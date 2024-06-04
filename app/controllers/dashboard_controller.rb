@@ -34,12 +34,6 @@ class DashboardController < ApplicationController
   def update_stock
     update_token
 
-    puts "stock updated"
-    puts "params: #{params[:price]}"
-    puts "params: #{params[:number_of_shares]}"
-    puts "params: #{params[:portfolio_id]}"
-    puts "params: #{params[:holdingIdModify]}"
-
     #Fetch new stock data from questrade
     stock_information = Faraday.new(url: "#{Token.find_by(user_id: current_user.id).api_server}v1/symbols?ids=#{PortfolioStock.find_by(id: params[:holdingIdModify]).symbol_id}") do |build|
          build.request :authorization, 'Bearer', -> {Token.find_by(user_id: current_user.id).access_token}
@@ -52,7 +46,7 @@ class DashboardController < ApplicationController
 
     # Determines what type of calculation needed for the total dividends
     def determine_payment_schedule(schedule)
-      distribution = nil
+      distribution = 0
       if "Annual" == schedule
         distribution = 1
       elsif "Semi-Annual" == schedule
@@ -90,12 +84,7 @@ class DashboardController < ApplicationController
 
   #Deletes the stock from portfolio
   def delete_stock
-    puts "Delete Stock"
-
-    puts "Delete stock: #{params[:holdingIdDelete]} , #{params[:portfolio_id]}"
-
     PortfolioStock.find_by(portfolio_id: params[:portfolio_id], id: params[:holdingIdDelete]).destroy
-
 
     #Refreshes the webpage
     redirect_to request.referer
@@ -103,7 +92,6 @@ class DashboardController < ApplicationController
 
   #Updates the portfolio turtbostream to the template update_target
   def update_portfolio
-    puts "Updating portfolio"
     respond_to do |format|
       format.turbo_stream { render "dashboard/update_target", locals: { portfolio: Portfolio.where(user_id: current_user.id) }}
     end

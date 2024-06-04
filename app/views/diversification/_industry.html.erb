@@ -1,3 +1,4 @@
+<%# Partial used for showing the industry allocation of a portfolio. %>
 <div class="card w-full  bg-base-300 shadow-2xl md:w-auto">
   <div class="card-body">
         <h2 class="card-title"> Industry Allocation</h2>
@@ -5,9 +6,9 @@
             <%# Portfolio Info, info displayed Largest holding, smallest and Total value%>
             <div class="col-span-1 md:col-span-1">
                 <h3>Largest Industry: </h3>
-                <h4 class="pb-1"><%=@selectedPortfolio.where.not(industry: nil).group(:industry).order('count_all DESC').count.first[0]%></h4>
+                <h4 class="pb-1"><%=@selectedPortfolio.where.not(industry: nil).group(:industry).order('count_all DESC').count.first.try(:[], 0).try(:gsub, "Services", "")%></h4>
                 <h3>Smallest Industry:</h3>
-                <h4><%=@selectedPortfolio.where.not(industry: nil).group(:industry).order('count_all ASC').count.first[0]%></h4>
+                <h4><%=@selectedPortfolio.where.not(industry: nil).group(:industry).order('count_all ASC').count.first.try(:[], 0).try(:gsub, "Services", "")%></h4>
             </div>
             <%# Contains the chart %>
             <div class="col-span-1 md:col-span-1">

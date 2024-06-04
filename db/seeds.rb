@@ -9,6 +9,6 @@
 #   end
 
 
-["Annual", "Semi-Annual", "Quarterly", "Monthly"].each do |frequency|
+["Annual", "Semi-Annual", "Quarterly", "Monthly", "None"].each do |frequency|
   PaymentSchedule.find_or_create_by!(distribution_schedule: frequency)
 end
