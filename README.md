@@ -9,12 +9,11 @@ https://div-tracker-tjzx7q7eeq-uc.a.run.app/
 
 # Future Features
   - Total Dividend calculations (Monthly, Quarterly, Yearly)
-  - Portfolio value, total yield
   - Dividend payout Schedule Calander
   - Ability to share each portfolio
 
 # In-Progress
-  - Graph for Dividend payments each month
+  - Performance improvements
 
 # Current Features
   - Search stocks
@@ -22,6 +21,7 @@ https://div-tracker-tjzx7q7eeq-uc.a.run.app/
   - Adding, Modifying and Delete Stocks
   - Graphs for Stock allocation and Industry Allocation
   - Portfolio value and Total yield is displayed
+  - Graph for Dividend payments each month
 
 # Resources used
   - Financial information gathered by the official Questrade API
