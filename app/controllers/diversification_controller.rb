@@ -32,6 +32,9 @@ class DiversificationController < ApplicationController
     if !params[:portfolio_id].nil?
       @selectedPortfolio = PortfolioStock.includes(:payment_schedule).where(portfolio_id: params[:portfolio_id]).all
 
+      puts "test: #{@selectedPortfolio.inspect}"
+
+
       @selectedPortfolio.each do |stock|
         @totalvalue += stock.total_value.to_f.round(2)
         @totaldividend += stock.total_div.to_f.round(2)
