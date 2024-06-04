@@ -4,8 +4,8 @@
       <div class="modal-box w-11/12 bg-base-300 p-3">
         <h3 class="font-bold text-lg">New Portfolio</h3>
         <%= form_with model: @portfolio, method: :post do |f| %>
-            <%= f.text_field :portfolio_name %>
-            <%= f.submit "Add"%>
+            <%= f.text_field :portfolio_name, class: "input input-bordered w-full max-w-xs"%>
+            <%= f.submit "Add", class:"btn"%>
         <%end%>
 
         <div class="modal-action">

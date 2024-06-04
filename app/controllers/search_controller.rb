@@ -52,7 +52,7 @@ class SearchController < ApplicationController
     @UserIsSignedIn= user_signed_in?
     puts "added stock"
 
-    flash[:message] = "Successfully added the stock"
+
     redirect_to request.referer
 
     #Insert new stock
@@ -69,12 +69,11 @@ class SearchController < ApplicationController
       stock_response = stock_information.get
       stocks_information = JSON.parse(stock_response.body)
 
-
-
+      flash[:success] = "Successfully added the stock #{stocks_information["symbols"][0]["symbol"]}."
 
       # Determines what type of calculation needed for the total dividends
       def determine_payment_schedule(schedule)
-        distribution = nil
+        distribution = 0
         if "Annual" == schedule
           distribution = 1
         elsif "Semi-Annual" == schedule

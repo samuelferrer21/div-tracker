@@ -5,14 +5,14 @@
   <dialog id="modify_stock" class="modal">
       <div class="modal-box w-11/12 bg-base-300 p-3">
         <h3 class="font-bold text-lg">New Portfolio</h3>
-         <%= form_with url: "/update_stock", method: :post, remote: true do |f| %>
+         <%= form_with url: "/update_stock", method: :post, remote: true, class: "grid grid-cols-1 w-full" do |f| %>
             <%= f.label :number_of_shares, "Number of Shares"%>
-            <%= f.number_field :number_of_shares %>
+            <%= f.number_field :number_of_shares, required: true, class: "input input-bordered w-full " %>
             <%= f.label :price, "Price per Share" %>
-            <%= f.number_field :price, step: 0.01%>
+            <%= f.number_field :price, step: 0.01, required: true, class: "input input-bordered w-full mb-4"%>
             <%= f.hidden_field :portfolio_id, value: params[:portfolio_id]%>
             <%= f.hidden_field :holdingIdModify%>
-            <%= f.submit "Add"%>
+            <%= f.submit "Add", class:"btn"%>
           <%end%>
         <div class="modal-action">
           <form method="dialog">
@@ -70,13 +70,13 @@
           <tr class="hover">
             <th><%=stock.stock_name%></th>
             <td><%=stock.number_of_shares%></td>
-            <td>$<%=stock.share_price%></td>
-            <td>$<%=stock.avg_share_price%></td>
-            <td>$<%=stock.total_value%></td>
+            <td>$<%=stock.share_price.round(2)%></td>
+            <td>$<%=stock.avg_share_price.round(2)%></td>
+            <td>$<%=stock.total_value.round(2)%></td>
             <td><%=PaymentSchedule.find(stock.payment_schedule_id).distribution_schedule%></td>
             <td><%=stock.div_yield%>%</td>
-            <td><%=stock.div_per_share%></td>
-            <td><%=stock.total_div%></td>
+            <td>$<%=stock.div_per_share.round(2)%></td>
+            <td>$<%=stock.total_div.round(2)%></td>
             <td>
               <%# Will contain Add button%>
               <%# Uses js to change form default values %>

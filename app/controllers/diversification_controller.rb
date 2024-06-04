@@ -7,7 +7,7 @@ class DiversificationController < ApplicationController
 
      # Determines what type of calculation needed for the total dividends
      def determine_payment_schedule(schedule)
-      distribution = nil
+      distribution = 0
       if "Annual" == schedule
         distribution = 1
       elsif "Semi-Annual" == schedule
@@ -17,7 +17,6 @@ class DiversificationController < ApplicationController
       elsif "Monthly" == schedule
         distribution = 12
       end
-
       return distribution
     end
 
