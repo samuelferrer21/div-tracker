@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user_custom!
   rescue_from Faraday::Error, with: :handle_connection_failed
   def index
     @UserIsSignedIn= user_signed_in?

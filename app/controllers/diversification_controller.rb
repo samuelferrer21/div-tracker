@@ -1,5 +1,5 @@
 class DiversificationController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user_custom!
   def index
     @UserIsSignedIn= user_signed_in?
     #Grabs the portfolio of the user
