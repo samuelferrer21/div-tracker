@@ -83,3 +83,6 @@ gem 'activerecord-cockroachdb-adapter'
 
 #chartkick
 gem "chartkick"
+
+#New relic
+gem 'newrelic_rpm'
