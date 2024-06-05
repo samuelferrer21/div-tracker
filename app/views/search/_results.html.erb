@@ -9,7 +9,7 @@
         <%# Add holding Form %>
         <%= form_with url: "/new_holding", method: :post, remote: true, class:"grid grid-cols-1 w-full" do |f|%>
             <%= f.label :portfolio_id, "Portfolio"%>
-            <%= f.select :portfolio_id, options_from_collection_for_select(Portfolio.where(user_id: current_user.id).all, :id, :portfolio_name),  { prompt: "Select Portfolio" }, class:"select select-bordered", required: true %>
+            <%= f.select :portfolio_id, options_from_collection_for_select(@portfolios, :id, :portfolio_name),  { prompt: "Select Portfolio" }, class:"select select-bordered", required: true %>
             <%= f.label :distribution_id, "Payment Schedule"%>
             <%= f.select :distribution_id, options_from_collection_for_select(PaymentSchedule.all, :id, :distribution_schedule),  { prompt: "Select Distribution Frequency" }, class:"select select-bordered", required: true %>
             <%= f.label :number_of_shares, "Number of Shares"%>

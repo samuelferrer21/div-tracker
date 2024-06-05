@@ -11,8 +11,8 @@ class SearchController < ApplicationController
 
       flash.now[:message] = "Showing results for symbol containing '#{params[:query]}'."
 
-       search_connection = Faraday.new(url: "#{session[:api_server]}v1/symbols/search?prefix=#{params[:query]}") do |build|
-         build.request :authorization, 'Bearer', -> {session[:access_token] }
+       search_connection = Faraday.new(url: "#{Token.find_by(user_id: current_user.id).api_server}v1/symbols/search?prefix=#{params[:query]}") do |build|
+         build.request :authorization, 'Bearer', -> {Token.find_by(user_id: current_user.id).access_token }
          build.response :raise_error
        end
 
@@ -61,8 +61,8 @@ class SearchController < ApplicationController
     update_token
 
     #Fetch specific stock data
-    stock_information = Faraday.new(url: "#{session[:api_server]}v1/symbols?ids=#{params[:symbol_id]}") do |build|
-         build.request :authorization, 'Bearer', -> {session[:access_token] }
+    stock_information = Faraday.new(url: "#{Token.find_by(user_id: current_user.id).api_server}v1/symbols?ids=#{params[:symbol_id]}") do |build|
+         build.request :authorization, 'Bearer', -> {Token.find_by(user_id: current_user.id).access_token}
          build.response :raise_error
        end
 

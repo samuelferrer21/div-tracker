@@ -73,7 +73,7 @@
             <td>$<%=stock.share_price.round(2)%></td>
             <td>$<%=stock.avg_share_price.round(2)%></td>
             <td>$<%=stock.total_value.round(2)%></td>
-            <td><%=PaymentSchedule.find(stock.payment_schedule_id).distribution_schedule%></td>
+            <td><%=stock.payment_schedule.distribution_schedule%></td>
             <td><%=stock.div_yield%>%</td>
             <td>$<%=stock.div_per_share.round(2)%></td>
             <td>$<%=stock.total_div.round(2)%></td>
