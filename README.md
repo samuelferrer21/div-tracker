@@ -4,6 +4,14 @@ This project is still currently under development as such many of the design and
 # Description
 The purpose of this project is to utilize the official Questrade API and allow users who have a Questrade account to keep track of their current portfolio / develop a future portfolio with a focus on dividend investments. The end goal of this project and it's features is to have the ability for a user to create a multitude of different portfolios that they can edit and modify to plan out their future financial goals.
 
+
+# Instructions:
+You will use a test account:
+1. Press 'Login' button
+2. Enter "test@lal.com" as email address
+3. Enter "asdasd" as password
+4. You now have access to a test account in which you can explore the application feel free to add and remove stocks and see how it affects the stats page.
+   
 # Link
 https://div-tracker-tjzx7q7eeq-uc.a.run.app/
 
