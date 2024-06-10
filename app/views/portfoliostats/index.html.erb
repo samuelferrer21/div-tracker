@@ -3,24 +3,24 @@
   <div id="portfolios" role="tablist" class ="tablist tabs-bordered w-fit flex">
     <%# No Turbo needed as we wont create portfolios here %>
     <%# Passes the portfolio_of_user variable from the controller to the portfolios partial as a variable called "portfolios" %>
-    <%= render "diversification/portfolios", portfolios: @portfolio_of_user%>
+    <%= render "portfoliostats/portfolios", portfolios: @portfolio_of_user%>
   </div>
   <% if PortfolioStock.where(portfolio_id: params[:portfolio_id]).all.count != 0 %>
     <%# Contains the graphs %>
     <div id="data" class= "grid grid-cols-1 md:grid-cols-2 gap-4 flex shrink">
       <div id="security_type">
-        <%=render "diversification/security"%>
+        <%=render "portfoliostats/security"%>
       </div>
       <div id="industry" class="col-span-1 md:col-span-1">
-        <%=render "diversification/industry"%>
+        <%=render "portfoliostats/industry"%>
       </div>
     </div>
-    <%# Divider Top is Diversification Below is Dividend data %>
+    <%# Divider Top is portfoliostats Below is Dividend data %>
     <div class="divider"></div>
     <%# Dividends Info %>
     <div class="md:flex">
-      <%= render "diversification/dividendOverview"%>
-      <%= render "diversification/dividendsPerMonth"%>
+      <%= render "portfoliostats/dividendOverview"%>
+      <%= render "portfoliostats/dividendsPerMonth"%>
     </div>
   <%else%>
     <h1>Add Stocks to get data</h1>

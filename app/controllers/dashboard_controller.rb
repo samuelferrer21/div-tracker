@@ -87,6 +87,13 @@ class DashboardController < ApplicationController
     redirect_to request.referer
   end
 
+  #Deletes portfolio
+  def delete_portfolio
+    Portfolio.find_by(id: params[:portfolio_id]).destroy
+    #Refreshes the webpage
+    redirect_to dashboard_path
+  end
+
   #Updates the portfolio turtbostream to the template update_target
   def update_portfolio
     respond_to do |format|

@@ -1,8 +1,0 @@
-<%# Partial that lists out all the available portfolios. %>
-<% portfolios.each do |f|  %>
-    <%if params[:portfolio_id].to_s == f.id.to_s %>
-        <%= link_to "#{f.portfolio_name}", diversification_path(portfolio_id:  f.id), role:"tab", class:"tab tab-active"%>
-    <%else%>
-        <%= link_to "#{f.portfolio_name}", diversification_path(portfolio_id:  f.id), role:"tab", class:"tab"  %>
-    <%end%>
-<%end%>

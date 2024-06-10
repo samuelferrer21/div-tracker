@@ -1,4 +1,4 @@
-class DiversificationController < ApplicationController
+class PortfoliostatsController < ApplicationController
   before_action :authenticate_user_custom!
   def index
     @UserIsSignedIn= user_signed_in?
