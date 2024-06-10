@@ -12,7 +12,6 @@
             </div>
             <%# Contains the chart %>
             <div class="col-span-1 md:col-span-1">
-                <%# <%=pie_chart @selectedPortfolio.group(:stock_name).sum(:number_of_shares), donut: true, legend: false, hole: 0.5, adapter: "chartjs"  %> 
                 <%=pie_chart @selectedPortfolio.group(:industry).count, donut: true, legend: false, hole: 0.5, adapter: "chartjs"  %>
             </div>
         </div>

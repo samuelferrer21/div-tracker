@@ -7,7 +7,6 @@
             <%= f.text_field :portfolio_name, class: "input input-bordered w-full max-w-xs", required: true%>
             <%= f.submit "Add", class:"btn"%>
         <%end%>
-
         <div class="modal-action">
           <form method="dialog">
             <!-- if there is a button, it will close the modal -->
@@ -20,6 +19,28 @@
         <button>close</button>
       </form>
   </dialog>
+  <%# Delete Current Portfolio %>
+  <dialog id="delete_portfolio" class="modal">
+      <div class="modal-box w-11/12 bg-base-300 p-3">
+        <h3 class="font-bold text-lg">Delete portfolio</h3>
+        <p>Are you sure you want to delete this portfolio?</p>
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn">Cancel</button>
+          </form>
+          <%# Confirm Deletion %>
+          <%= form_with url: "/delete_portfolio", method: :post, remote: true do |f| %>
+            <%= f.hidden_field :portfolio_id, value: params[:portfolio_id]%>
+            <%= f.submit "Confirm", class:"btn btn-warning"%>
+          <%end%>
+        </div>
+      </div>
+      <!---Exits if clicked outside or pressed 'ESC'--->
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+  </dialog>
+  
   <!---Flash message--->
    <% if flash.now[:message] %>
     <div class="alert alert-error bg-error alert-dismissible fade show">
@@ -33,8 +54,15 @@
     <button class="btn" onclick="create_portfolio.showModal()">New Portfolio</button>
     <%# Connect to Questrade %>
     <%= button_to "Connect to Questrade", "https://login.questrade.com/oauth2/authorize?client_id=YTGdFwCpGjB76WxOJAmmBOem0n1QvA&response_type=code&redirect_uri=https://div-tracker-tjzx7q7eeq-uc.a.run.app", class:"btn btn-primary"%>
-    <%# Redirct to Diversification page %>
-    <%= button_to "Portfolio Stats", diversification_path, method: :get,params: { portfolio_id: params[:portfolio_id] }, class:"btn" %>
+    
+    
+    <%# Delete Portfolio %>
+    <%if params[:portfolio_id].present?%>
+      <%# Redirct to stats page %>
+      <%= button_to "Portfolio Stats", portfoliostats_path, method: :get,params: { portfolio_id: params[:portfolio_id] }, class:"btn" %>
+      <button class="btn mr-[15px]" onclick="delete_portfolio.showModal()">Delete Portfolio</button>
+    <%end%>
+    
   </div>
   <%# Portfolios will be displayed here and navigation will take place here as well%>
   <div>
@@ -49,6 +77,7 @@
   <% if params[:portfolio_id].present?%>
     <%= render "stocks", stocks: @selectedPortfolio%>
     <%else%>
+    <p>Select a portfolio or create a portfolio</p>
   <%end%>
 
 </div>

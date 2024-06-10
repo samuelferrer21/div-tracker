@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   post "dashboard", to: "dashboard#create"
   post "update_stock", to: "dashboard#update_stock"
   post "delete_stock", to: "dashboard#delete_stock"
+  post "delete_portfolio", to: "dashboard#delete_portfolio"
 
 
 
@@ -29,5 +30,5 @@ Rails.application.routes.draw do
   post "new_holding", to: "search#add_stock"
 
   #Diversification
-  get "diversification", to: "diversification#index"
+  get "portfoliostats", to: "portfoliostats#index"
 end

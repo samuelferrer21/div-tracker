@@ -1,4 +1,4 @@
-class DiversificationController < ApplicationController
+class PortfoliostatsController < ApplicationController
   before_action :authenticate_user_custom!
   def index
     @UserIsSignedIn= user_signed_in?
@@ -31,9 +31,6 @@ class DiversificationController < ApplicationController
     #Grabs the stock data for the selected portfolio
     if !params[:portfolio_id].nil?
       @selectedPortfolio = PortfolioStock.includes(:payment_schedule).where(portfolio_id: params[:portfolio_id]).all
-
-      puts "test: #{@selectedPortfolio.inspect}"
-
 
       @selectedPortfolio.each do |stock|
         @totalvalue += stock.total_value.to_f.round(2)

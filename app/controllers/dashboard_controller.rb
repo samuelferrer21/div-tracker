@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
 
     #Grabs the stock data for the selected portfolio
     if !params[:portfolio_id].nil?
-      @selectedPortfolio = PortfolioStock.where(portfolio_id: params[:portfolio_id]).all
+      @selectedPortfolio = PortfolioStock.includes(:payment_schedule).where(portfolio_id: params[:portfolio_id]).all
     end
 
   end
@@ -35,7 +35,7 @@ class DashboardController < ApplicationController
     update_token
 
     #Fetch new stock data from questrade
-    stock_information = Faraday.new(url: "#{Token.find_by(user_id: current_user.id).api_server}v1/symbols?ids=#{PortfolioStock.find_by(id: params[:holdingIdModify]).symbol_id}") do |build|
+    stock_information = Faraday.new(url: "#{Token.find_by(user_id: current_user.id).api_server}v1/symbols?ids=#{PortfolioStock.find(params[:holdingIdModify]).symbol_id}") do |build|
          build.request :authorization, 'Bearer', -> {Token.find_by(user_id: current_user.id).access_token}
          build.response :raise_error
     end
@@ -60,9 +60,7 @@ class DashboardController < ApplicationController
       return distribution
     end
 
-    distribution_id = PortfolioStock.find_by(id: params[:holdingIdModify]).payment_schedule_id
-
-    paid = determine_payment_schedule(PaymentSchedule.find(distribution_id).distribution_schedule).to_i
+    paid = determine_payment_schedule(PortfolioStock.includes(:payment_schedule).find(params[:holdingIdModify]).payment_schedule.distribution_schedule).to_i
 
     #input new number of shares to the portfolio
     modify_stock = PortfolioStock.find_by(portfolio_id: params[:portfolio_id], id: params[:holdingIdModify]).update(
@@ -78,16 +76,22 @@ class DashboardController < ApplicationController
         ex_dividend: stocks_information["symbols"][0]["dividendDate"],
       symbol_id: stocks_information["symbols"][0]["symbolId"]
       )
-
-
   end
 
   #Deletes the stock from portfolio
   def delete_stock
+    update_token
     PortfolioStock.find_by(portfolio_id: params[:portfolio_id], id: params[:holdingIdDelete]).destroy
 
     #Refreshes the webpage
     redirect_to request.referer
+  end
+
+  #Deletes portfolio
+  def delete_portfolio
+    Portfolio.find_by(id: params[:portfolio_id]).destroy
+    #Refreshes the webpage
+    redirect_to dashboard_path
   end
 
   #Updates the portfolio turtbostream to the template update_target

@@ -1,3 +1,3 @@
 class PaymentSchedule < ApplicationRecord
-  has_many :portfolio_stock
+  has_many :portfolio_stocks, dependent: :destroy
 end
