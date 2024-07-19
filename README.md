@@ -1,6 +1,3 @@
-# Project Status
-This project is still currently under development as such many of the design and functionality is not working or incomplete.
-
 # Description
 The purpose of this project is to utilize the official Questrade API and allow users who have a Questrade account to keep track of their current portfolio / develop a future portfolio with a focus on dividend investments. The end goal of this project and it's features is to have the ability for a user to create a multitude of different portfolios that they can edit and modify to plan out their future financial goals.
 
